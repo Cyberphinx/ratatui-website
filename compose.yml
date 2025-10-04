@@ -6,7 +6,7 @@ services:
     container_name: ratatui-docs
     restart: unless-stopped
     ports:
-      - "80:80"
+      - "4321:80"  # Change 8080 to your desired port
     networks:
       - ratatui-network
     healthcheck:
@@ -19,4 +19,3 @@ services:
 networks:
   ratatui-network:
     driver: bridge
-
