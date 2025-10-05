@@ -9,6 +9,7 @@ services:
       - "4321:80"  # Change 8080 to your desired port
     networks:
       - ratatui-network
+      - nginx_bridge
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/"]
       interval: 30s
@@ -19,3 +20,5 @@ services:
 networks:
   ratatui-network:
     driver: bridge
+  nginx_bridge:
+    external: true
