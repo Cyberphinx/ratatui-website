@@ -1,6 +1,44 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@layer base, starlight, components, utilities;
+
+@import "@astrojs/starlight-tailwind";
+@import "tailwindcss";
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@theme {
+  /* Custom accent colors. */
+  --color-accent-50: var(--color-blue-50);
+  --color-accent-100: var(--color-blue-100);
+  --color-accent-200: var(--color-blue-200);
+  --color-accent-300: var(--color-blue-300);
+  --color-accent-400: var(--color-blue-400);
+  --color-accent-500: var(--color-blue-500);
+  --color-accent-600: var(--color-blue-600);
+  --color-accent-700: var(--color-blue-700);
+  --color-accent-800: var(--color-blue-800);
+  --color-accent-900: var(--color-blue-900);
+  --color-accent-950: var(--color-blue-950);
+  /* Custom gray colors. */
+  --color-gray-50: var(--color-slate-50);
+  --color-gray-100: var(--color-slate-100);
+  --color-gray-200: var(--color-slate-200);
+  --color-gray-300: var(--color-slate-300);
+  --color-gray-400: var(--color-slate-400);
+  --color-gray-500: var(--color-slate-500);
+  --color-gray-600: var(--color-slate-600);
+  --color-gray-700: var(--color-slate-700);
+  --color-gray-800: var(--color-slate-800);
+  --color-gray-900: var(--color-slate-900);
+  --color-gray-950: var(--color-slate-950);
+}
+
+:root[data-theme="dark"] {
+  --sl-color-basic: white;
+}
+
+:root[data-theme="light"] {
+  --sl-color-basic: black;
+  ;
+}
 
 @media (min-width: 50rem) {
   /* Move the logo to the left side  */
@@ -85,6 +123,15 @@ svg[aria-roledescription="stateDiagram"] circle {
   ;
 }
 
+:root[data-theme="dark"] {
+  --sl-color-highlight-2: oklch(79.5% 0.184 86.047);
+}
+
+:root[data-theme="light"] {
+  --sl-color-highlight-2: oklch(79.5% 0.184 86.047);
+  ;
+}
+
 marker#arrowhead path {
   fill: currentColor !important;
   stroke: currentColor !important;
@@ -127,101 +174,12 @@ main .content-panel:first-child:not(:has(*)) {
   display: none !important;
 }
 
-/* Alternative: hide first content panel if it only contains empty elements */
-main .content-panel:first-child {
-  display: none !important;
-}
-
-/* Landing page styles */
+/* Landing page font */
 .landing-mono {
   font-family: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
 }
 
-/* Base classes for common patterns */
-.landing-section-base {
-  text-align: center;
-  margin: 4rem 0;
-}
-
-.landing-text-small {
-  font-size: 0.9rem;
-  color: var(--sl-color-gray-2);
-}
-
-.landing-link {
-  color: var(--sl-color-accent);
-  text-decoration: none;
-}
-
-/* Hero section */
-@media (min-width: 768px) {
-  .landing-hero {
-    grid-template-columns: auto 1fr;
-    text-align: left;
-    align-items: flex-start;
-    gap: 3rem;
-  }
-}
-
-.landing-hero-title {
-  display: flex;
-  gap: 1rem;
-  align-items: flex-end;
-}
-
-.landing-hero-logo {
-  position: relative;
-  width: 100px;
-  height: auto;
-}
-
-@media (min-width: 768px) {
-  .landing-hero-logo {
-    margin: 0;
-  }
-}
-
-.landing-hero-logo-light,
-.landing-hero-logo-dark {
-  width: 100%;
-  height: 100%;
-}
-
-/* Show light logo in light theme, hide dark logo */
-:root[data-theme="light"] .landing-hero-logo-dark,
-[data-theme="light"] .landing-hero-logo-dark {
-  display: none;
-}
-
-:root[data-theme="light"] .landing-hero-logo-light,
-[data-theme="light"] .landing-hero-logo-light {
-  display: block;
-}
-
-/* Show dark logo in dark theme, hide light logo */
-:root[data-theme="dark"] .landing-hero-logo-light,
-[data-theme="dark"] .landing-hero-logo-light {
-  display: none;
-}
-
-:root[data-theme="dark"] .landing-hero-logo-dark,
-[data-theme="dark"] .landing-hero-logo-dark {
-  display: block;
-}
-
-/* Default to dark theme if no theme is set */
-.landing-hero-logo-light {
-  display: none;
-}
-
-.landing-hero-logo-dark {
-  display: block;
-}
-
-.landing-hero-content {
-  padding: 2rem 0;
-}
-
+/* Landing page text blinking cursor animation */
 .landing-highlight {
   color: var(--sl-color-highlight);
   font-weight: 600;
@@ -230,13 +188,28 @@ main .content-panel:first-child {
 .landing-highlight::after {
   content: '';
   display: inline-block;
-  width: 1.5rem;
-  height: 1em;
+  width: 1.25rem;
+  height: 0.85em;
   background: var(--sl-color-highlight);
   margin-left: 0.2rem;
   animation: blink 1s infinite;
-  vertical-align: text-bottom;
-  vertical-align: -0.1em;
+  vertical-align: 0em;
+}
+
+.landing-highlight-tall {
+  color: var(--sl-color-highlight-2);
+  font-weight: 600;
+}
+
+.landing-highlight-tall::after {
+  content: '';
+  display: inline-block;
+  width: 1.25rem;
+  height: 1em;
+  background: var(--sl-color-highlight-2);
+  margin-left: 0.2rem;
+  animation: blink 1s infinite;
+  vertical-align: -0.2em;
 }
 
 @keyframes blink {
@@ -251,151 +224,176 @@ main .content-panel:first-child {
   }
 }
 
-
-.landing-description {
-  margin: 0 0 2rem 0;
-  max-width: 560px;
-  margin-left: auto;
-  margin-right: auto;
-  font-weight: 500;
+/* Squiggle underline hover animation */
+.btn-slide::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 6px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 4'%3E%3Cpath fill='none' stroke='red' stroke-width='2' d='M0,2 Q2.5,0 5,2 T10,2 T15,2 T20,2'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 20px 6px;
+  transition: width 0.4s ease;
 }
 
-.landing-demo-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  align-items: center;
-  margin: 2rem 0;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
+a:hover .btn-slide::after {
+  width: 100%;
 }
 
-.landing-demo-heading {
-  font-size: 1.75rem !important;
-  margin-bottom: 1rem;
-  color: var(--sl-color-white);
-  font-weight: 600;
-  white-space: nowrap;
-  line-height: 1.2 !important;
-}
-
-.landing-demo-button {
+/* Cyberpunk glitch effect on hover */
+/* Base setup */
+.glitch-container {
+  position: relative;
   display: inline-block;
-  background: var(--sl-color-accent);
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 0.9rem;
-  margin: 1rem 0;
+  overflow: visible;
 }
 
-.landing-demo-image {
-  text-align: center;
-}
-
-.landing-demo-image .landing-cta-button {
-  margin-top: 1rem;
-}
-
-.landing-demo-caption {
-  margin-top: 0.5rem;
-}
-
-.landing-demo-link {
-  color: var(--sl-color-accent);
-  text-decoration: none;
-}
-
-/* Section styling */
-.landing-section-title {
-  font-size: 1.75rem !important;
-  margin-bottom: 2rem;
-  font-weight: 600 !important;
-  line-height: 1.3 !important;
-}
-
-/* Higher specificity override for Starlight's h2 styles */
-.sl-markdown-content .landing-section-title {
-  font-size: 1.75rem !important;
-  line-height: 1.3 !important;
-}
-
-/* Apps showcase */
-.landing-apps-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  margin: 2rem 0;
-}
-
-.landing-app-card {
-  padding: 1rem;
-  border: 1px solid var(--sl-color-gray-5);
-  border-radius: 0.5rem;
-}
-
-.landing-app-title {
-  margin: 0 0 0.5rem 0;
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-
-.landing-app-title a {
-  text-decoration: none;
-  color: var(--sl-color-white);
-}
-
-.landing-app-description {
-  margin: 0;
-}
-
-/* CTA section */
-.landing-cta-section {
-  text-align: center;
-  margin: 6rem 0 4rem 0;
-}
-
-.landing-cta-title {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  font-weight: 600;
-}
-
-.landing-cta-description {
-  margin-bottom: 2rem;
-}
-
-.landing-cta-buttons {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-/* Base button styling */
-.landing-cta-button {
+.glitch-text {
+  position: relative;
   display: inline-block;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.375rem;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 1.1rem;
+  color: inherit;
 }
 
-.landing-cta-primary {
-  background: var(--sl-color-accent);
-  color: white;
+/* Create more aggressive pseudo-elements */
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  mix-blend-mode: screen;
 }
 
-.landing-cta-secondary {
-  border: 1px solid var(--sl-color-accent);
-  color: var(--sl-color-accent);
+/* Activate glitch on hover with chromatic aberration */
+.glitch-container:hover .glitch-text::before {
+  opacity: 0.9;
+  color: #00fffc;
+  /* Cyan */
+  animation: cyberpunk-glitch-1 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+  text-shadow: -2px 0 #ff00ff, 2px 2px #00fffc;
 }
 
-.landing-cta-tertiary {
-  border: 1px solid var(--sl-color-gray-5);
-  color: var(--sl-color-gray-2);
+.glitch-container:hover .glitch-text::after {
+  opacity: 0.9;
+  color: #ff00ff;
+  /* Magenta */
+  animation: cyberpunk-glitch-2 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse infinite;
+  text-shadow: -2px -2px #00fffc, 2px 0 #ff00ff;
+}
+
+@keyframes cyberpunk-glitch-1 {
+  0% {
+    transform: translate(0);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+
+  10% {
+    transform: translate(-5px, 2px);
+    clip-path: polygon(0 0, 100% 0, 100% 15%, 0 15%);
+  }
+
+  20% {
+    transform: translate(5px, -3px);
+    clip-path: polygon(0 85%, 100% 85%, 100% 100%, 0 100%);
+  }
+
+  30% {
+    transform: translate(-3px, 3px);
+    clip-path: polygon(0 40%, 100% 40%, 100% 60%, 0 60%);
+  }
+
+  40% {
+    transform: translate(4px, -2px) skew(-5deg);
+    clip-path: polygon(0 20%, 100% 20%, 100% 30%, 0 30%);
+  }
+
+  50% {
+    transform: translate(-4px, 4px);
+    clip-path: polygon(0 70%, 100% 70%, 100% 80%, 0 80%);
+  }
+
+  60% {
+    transform: translate(3px, -4px) skew(5deg);
+    clip-path: polygon(0 50%, 100% 50%, 100% 55%, 0 55%);
+  }
+
+  70% {
+    transform: translate(-5px, 2px);
+    clip-path: polygon(0 0, 100% 0, 100% 10%, 0 10%);
+  }
+
+  80% {
+    transform: translate(5px, -3px);
+    clip-path: polygon(0 90%, 100% 90%, 100% 100%, 0 100%);
+  }
+
+  100% {
+    transform: translate(0);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+@keyframes cyberpunk-glitch-2 {
+  0% {
+    transform: translate(0);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+
+  15% {
+    transform: translate(3px, -2px);
+    clip-path: polygon(0 60%, 100% 60%, 100% 75%, 0 75%);
+  }
+
+  25% {
+    transform: translate(-4px, 3px) skew(3deg);
+    clip-path: polygon(0 5%, 100% 5%, 100% 15%, 0 15%);
+  }
+
+  35% {
+    transform: translate(5px, -4px);
+    clip-path: polygon(0 80%, 100% 80%, 100% 95%, 0 95%);
+  }
+
+  45% {
+    transform: translate(-3px, 2px);
+    clip-path: polygon(0 35%, 100% 35%, 100% 45%, 0 45%);
+  }
+
+  55% {
+    transform: translate(4px, 4px) skew(-4deg);
+    clip-path: polygon(0 0, 100% 0, 100% 8%, 0 8%);
+  }
+
+  65% {
+    transform: translate(-5px, -2px);
+    clip-path: polygon(0 65%, 100% 65%, 100% 70%, 0 70%);
+  }
+
+  75% {
+    transform: translate(3px, 3px);
+    clip-path: polygon(0 25%, 100% 25%, 100% 35%, 0 35%);
+  }
+
+  85% {
+    transform: translate(-4px, -3px) skew(2deg);
+    clip-path: polygon(0 92%, 100% 92%, 100% 100%, 0 100%);
+  }
+
+  100% {
+    transform: translate(0);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .glitch-container:hover .glitch-text::before,
+  .glitch-container:hover .glitch-text::after {
+    animation: none;
+  }
 }
