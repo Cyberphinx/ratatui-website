@@ -6,25 +6,26 @@
 
 <script>
   import init, { createRenderer, RendererConfig } from 'tachyonfx-renderer';
-  // Import the WASM file explicitly
   import wasmUrl from 'tachyonfx-renderer/tachyonfx_renderer_bg.wasm?url';
+  import sourceCode from '../../code/tutorials/quickstart-ratatui/src/main.rs?raw';
 
-
-  const SLIDE_IN_EFFECT = `
-    fx::slide_in(Motion::RightToLeft, 10, 0, Color::Black, (800, Interpolation::QuadOut))
+  const COMPLEX_EFFECT = `
+    fx::parallel(&[
+      fx::sweep_in(Motion::RightToLeft, 15, 0, Color::Black, (1000, Interpolation::BounceOut)),
+      fx::coalesce((1000, Interpolation::QuadOut))
+    ])
   `;
 
   async function initTachyon() {
     try {
       console.log('Initializing with WASM URL:', wasmUrl);
       
-      // Pass the WASM URL explicitly
       await init(wasmUrl);
       console.log('WASM initialized');
 
       const config = new RendererConfig('tachyon-id')
-        .withDsl(SLIDE_IN_EFFECT)
-        .withCanvas('Hello World!');
+        .withDsl(COMPLEX_EFFECT)
+        .withCanvas(sourceCode);
 
       console.log('Creating renderer...');
       const renderer = createRenderer(config);
