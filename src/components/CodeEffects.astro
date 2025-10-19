@@ -1,0 +1,40 @@
+---
+// CodeEffects.astro
+---
+
+<div id="tachyon-id" class="w-[750px] h-[500px] border border-dashed"></div>
+
+<script>
+  import init, { createRenderer, RendererConfig } from 'tachyonfx-renderer';
+  // Import the WASM file explicitly
+  import wasmUrl from 'tachyonfx-renderer/tachyonfx_renderer_bg.wasm?url';
+
+
+  const SLIDE_IN_EFFECT = `
+    fx::slide_in(Motion::RightToLeft, 10, 0, Color::Black, (800, Interpolation::QuadOut))
+  `;
+
+  async function initTachyon() {
+    try {
+      console.log('Initializing with WASM URL:', wasmUrl);
+      
+      // Pass the WASM URL explicitly
+      await init(wasmUrl);
+      console.log('WASM initialized');
+
+      const config = new RendererConfig('tachyon-id')
+        .withDsl(SLIDE_IN_EFFECT)
+        .withCanvas('Hello World!');
+
+      console.log('Creating renderer...');
+      const renderer = createRenderer(config);
+      console.log('Renderer created:', renderer);
+
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+
+  initTachyon();
+</script>
+
