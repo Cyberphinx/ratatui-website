@@ -2,7 +2,7 @@
 // CodeEffects.astro
 ---
 
-<div id="tachyon-id" class="w-[750px] h-[500px] border border-dashed"></div>
+<div id="tachyon-id" class="min-h-[450px] min-w-[500px] p-5 border border-slate-600 rounded-[6px] bg-[#011627]"></div>
 
 <script>
   import init, { createRenderer, RendererConfig } from 'tachyonfx-renderer';
@@ -11,25 +11,22 @@
 
   const COMPLEX_EFFECT = `
     fx::parallel(&[
-      fx::sweep_in(Motion::RightToLeft, 15, 0, Color::Black, (1000, Interpolation::BounceOut)),
-      fx::coalesce((1000, Interpolation::QuadOut))
+      fx::sweep_in(Motion::RightToLeft, 15, 0, Color::Rgb(1, 22, 39), (1000, Interpolation::BounceOut)),
+      fx::coalesce((1000, Interpolation::QuadOut)),
+      fx::dissolve_to(Style::default().bg(Color::from_u32(0x1d2021)), 1000)
+        .with_pattern(SweepPattern::right_to_left(35))
     ])
   `;
 
   async function initTachyon() {
     try {
-      console.log('Initializing with WASM URL:', wasmUrl);
-      
       await init(wasmUrl);
-      console.log('WASM initialized');
 
       const config = new RendererConfig('tachyon-id')
         .withDsl(COMPLEX_EFFECT)
         .withCanvas(sourceCode);
 
-      console.log('Creating renderer...');
       const renderer = createRenderer(config);
-      console.log('Renderer created:', renderer);
 
     } catch (error) {
       console.error('Error:', error);
@@ -38,4 +35,3 @@
 
   initTachyon();
 </script>
-
