@@ -2,7 +2,9 @@
 // CodeEffects.astro
 ---
 
-<div id="tachyon-id" class="min-h-[450px] min-w-[500px] p-5 border border-slate-600 rounded-[6px] bg-[#011627]"></div>
+<div class="bg-[#011627]">
+  <div id="tachyon-id" class="min-h-[450px] min-w-[500px] p-5 border border-slate-600 rounded-[6px] bg-[#011627]"></div>
+</div>
 
 <script>
   import init, { createRenderer, RendererConfig } from 'tachyonfx-renderer';
@@ -11,7 +13,7 @@
 
   const COMPLEX_EFFECT = `
     fx::parallel(&[
-      fx::sweep_in(Motion::RightToLeft, 15, 0, Color::Rgb(1, 22, 39), (1000, Interpolation::BounceOut)),
+    fx::sweep_in(Motion::RightToLeft, 15, 0, Color::from_u32(0x1d2021), (1000, Interpolation::BounceOut)),
       fx::coalesce((1000, Interpolation::QuadOut)),
       fx::dissolve_to(Style::default().bg(Color::from_u32(0x1d2021)), 1000)
         .with_pattern(SweepPattern::right_to_left(35))
