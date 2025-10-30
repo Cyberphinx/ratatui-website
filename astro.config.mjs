@@ -62,41 +62,13 @@ export default defineConfig({
         plugins: [pluginCollapsibleSections(), collapsibleFrames()],
       },
       social: [
-        {
-          icon: "github",
-          label: "GitHub",
-          href: "https://github.com/ratatui/ratatui",
-        },
-        {
-          icon: "discord",
-          label: "Discord",
-          href: "https://discord.gg/pMCEU9hNEj",
-        },
-        {
-          icon: "matrix",
-          label: "Matrix",
-          href: "https://matrix.to/#/#ratatui:matrix.org",
-        },
-        {
-          icon: "discourse",
-          label: "Discourse",
-          href: "https://forum.ratatui.rs",
-        },
-        {
-          icon: "x.com",
-          label: "X.com",
-          href: "https://twitter.com/ratatui_rs",
-        },
-        {
-          icon: "blueSky",
-          label: "Bluesky",
-          href: "https://bsky.app/profile/ratatui.rs",
-        },
-        {
-          icon: "mastodon",
-          label: "Mastodon",
-          href: "https://fosstodon.org/@ratatui_rs",
-        },
+        { icon: "github", label: "GitHub", href: "https://github.com/ratatui/ratatui" },
+        { icon: "discord", label: "Discord", href: "https://discord.gg/pMCEU9hNEj" },
+        { icon: "matrix", label: "Matrix", href: "https://matrix.to/#/#ratatui:matrix.org" },
+        { icon: "discourse", label: "Discourse", href: "https://forum.ratatui.rs" },
+        { icon: "x.com", label: "X.com", href: "https://twitter.com/ratatui_rs" },
+        { icon: "blueSky", label: "Bluesky", href: "https://bsky.app/profile/ratatui.rs" },
+        { icon: "mastodon", label: "Mastodon", href: "https://fosstodon.org/@ratatui_rs" },
         {
           icon: "linkedin",
           label: "LinkedIn",
