@@ -5,6 +5,8 @@ services:
       dockerfile: Dockerfile
     container_name: ratatui-docs
     restart: unless-stopped
+    env_file:
+      - .env
     ports:
       - "4321:80"  # Change 8080 to your desired port
     networks:
