@@ -5,7 +5,7 @@ import { getAllStats } from "../utils/stats";
 let stats;
 try {
   console.log("Fetching stats at build time...");
-  stats = await getAllStats();
+  stats = await getAllStats("ratatui", "ratatui");
   console.log("Successfully fetched stats:", stats);
 } catch (error) {
   console.error("Failed to load stats, using fallbacks:");
@@ -27,7 +27,7 @@ const data = [
   },
   {
     value: stats.stars,
-    url: "https://github.com/ratatui-org/ratatui",
+    url: "https://github.com/ratatui/ratatui",
     description: "  ⭐ stars on GitHub",
   },
   {
