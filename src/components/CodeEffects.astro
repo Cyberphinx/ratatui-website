@@ -1,10 +1,10 @@
 ---
-// CodeEffects.astro
+// TachyonFX Code Animation
 ---
 
 <div class="bg-[#011627]">
   <div
-    id="tachyon-id"
+    id="tachyon-canvas"
     class="min-h-[450px] min-w-[500px] rounded-[6px] border border-slate-600 bg-[#011627] p-5"
   >
   </div>
@@ -13,7 +13,11 @@
 <script>
   import init, { createRenderer, RendererConfig } from "tachyonfx-renderer";
   import wasmUrl from "tachyonfx-renderer/tachyonfx_renderer_bg.wasm?url";
-  import sourceCode from "../../code/tutorials/quickstart-ratatui/src/main.rs?raw";
+  import {
+    CODE_EXAMPLE,
+    CODE_EXAMPLE_2,
+    DEFAULT_CANVAS_ANSI,
+  } from "../assets/code-example-ansi.ts";
 
   const COMPLEX_EFFECT = `
     fx::parallel(&[
@@ -28,9 +32,9 @@
     try {
       await init(wasmUrl);
 
-      const config = new RendererConfig("tachyon-id")
+      const config = new RendererConfig("tachyon-canvas")
         .withDsl(COMPLEX_EFFECT)
-        .withCanvas(sourceCode);
+        .withCanvas(CODE_EXAMPLE);
 
       const renderer = createRenderer(config);
     } catch (error) {
